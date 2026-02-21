@@ -8,7 +8,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-VERL_TOOL_ROOT=$(python -c "
+VERL_TOOL_ROOT=$(uv run python -c "
 import verl_tool, os
 print(os.path.dirname(os.path.abspath(verl_tool.__file__)))
 ")
@@ -21,10 +21,10 @@ echo "Copying bm25_reward.py → $VERL_TOOL_ROOT/workers/reward_manager/"
 cp "$SCRIPT_DIR/reward_manager/bm25_reward.py" "$VERL_TOOL_ROOT/workers/reward_manager/bm25_reward.py"
 
 echo "Installing rank-bm25..."
-pip install rank-bm25 --quiet
+uv pip install rank-bm25
 
 echo "Generating dataset from verl-team/gsm8k-v0.4.1..."
-python "$SCRIPT_DIR/data/prepare_data.py"
+uv run python "$SCRIPT_DIR/data/prepare_data.py"
 
 echo ""
 echo "Setup complete. Run: bash train_granite_grpo.sh"

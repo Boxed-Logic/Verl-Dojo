@@ -105,7 +105,7 @@ host=$(hostname -i | awk '{print $1}')
 port=$(shuf -i 30000-31000 -n 1)
 tool_server_url="http://$host:$port/get_observation"
 
-python -m verl_tool.servers.serve \
+uv run python -m verl_tool.servers.serve \
     --host "$host" \
     --port "$port" \
     --tool_type "arithmetic" \
@@ -119,7 +119,7 @@ echo "Tool server (pid=$server_pid) started at $tool_server_url"
 sleep 5
 
 # ── Training ─────────────────────────────────────────────────────────────
-PYTHONUNBUFFERED=1 python -m verl_tool.trainer.main_ppo \
+PYTHONUNBUFFERED=1 uv run python -m verl_tool.trainer.main_ppo \
     algorithm.adv_estimator=$rl_alg \
     \
     data.train_files="$train_data" \
