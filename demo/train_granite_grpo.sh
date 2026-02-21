@@ -40,8 +40,8 @@ target_modules="[q_proj,k_proj,v_proj,o_proj,shared_mlp.input_linear,shared_mlp.
 # ── Algorithm ────────────────────────────────────────────────────────────
 rl_alg=grpo
 n=8                          # rollout samples per prompt (GRPO group size)
-batch_size=64
-ppo_mini_batch_size=64
+batch_size=16
+ppo_mini_batch_size=16
 ppo_micro_batch_size_per_gpu=1
 log_prob_micro_batch_size_per_gpu=4
 
